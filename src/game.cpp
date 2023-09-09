@@ -1,24 +1,34 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include "..\header\funcs.h"
 
 int main() {
-    std::vector<std::string> paises;
-    std::vector<std::string> comidas;
-    std::vector<std::string> animais;
-    std::vector<std::string> nomes;
+    auto begin = std::chrono::steady_clock::now();
+
+    std::string name;
+    std::vector<std::string> countries;
+    std::vector<std::string> food;
+    std::vector<std::string> animals;
+    std::vector<std::string> names;
     char letra;
 
-    addWordsPaises(paises);
-    addWordsComidas(comidas);
-    addWordsAnimais(animais);
-    addWordsNomes(nomes);
+    std::system("cls");
 
-    for(auto & i : nomes) {
-        std::cout << i << "\n";
-    }
+    addWordsCountries(countries);
+    addWordsFood(food);
+    addWordsAnimals(animals);
+    addWordsNames(names);
 
-    std::cout << "Tamanho do vector: " << nomes.size() << std::endl;
+    askPlayerName(name);
+
+    auto end = std::chrono::steady_clock::now();
+
+    std::chrono::duration<double> time = end - begin;
+
+    std::cout << std::endl;
+
+    std::cout << "Tempo de execução: " << time.count();
 
     return 0;
 }

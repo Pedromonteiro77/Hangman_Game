@@ -4,9 +4,14 @@
 #include <string>
 #include <vector>
 
-void addWordsPaises(std::vector<std::string> & paises);
-void addWordsComidas(std::vector<std::string> & comidas);
-void addWordsAnimais(std::vector<std::string> & animais);
-void addWordsNomes(std::vector<std::string> & nomes);
+void addWordsCountries(std::vector<std::string> & countries);
+
+void addWordsFood(std::vector<std::string> & food);
+
+void addWordsAnimals(std::vector<std::string> & animals);
+
+void addWordsNames(std::vector<std::string> & names);
+
+void askPlayerName(std::string & name);
 
 #endif
