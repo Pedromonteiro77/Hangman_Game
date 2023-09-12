@@ -11,22 +11,21 @@ private:
     std::vector<std::string> food;
     std::vector<std::string> animals;
     std::vector<std::string> names;
-    char letra;
 
 public:
-    std::vector<std::string> getCountries() {
+    std::vector<std::string> getCountries() const {
         return countries;
     }
 
-    std::vector<std::string> getFood() {
+    std::vector<std::string> getFood() const {
         return food;
     }
 
-    std::vector<std::string> getAnimals() {
+    std::vector<std::string> getAnimals() const {
         return animals;
     }
 
-    std::vector<std::string> getNames() {
+    std::vector<std::string> getNames() const {
         return names;
     }
 
@@ -37,13 +36,10 @@ public:
     void clearScreen();
 
     void addWordsCountries();
-
     void addWordsFood();
-
     void addWordsAnimals();
-
     void addWordsNames();
-  
+
     void askPlayerName();
 };
 
