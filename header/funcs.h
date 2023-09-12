@@ -4,14 +4,47 @@
 #include <string>
 #include <vector>
 
-void addWordsCountries(std::vector<std::string> & countries);
+class HangmanGame {
+private:
+    std::string playerName;
+    std::vector<std::string> countries;
+    std::vector<std::string> food;
+    std::vector<std::string> animals;
+    std::vector<std::string> names;
+    char letra;
 
-void addWordsFood(std::vector<std::string> & food);
+public:
+    std::vector<std::string> getCountries() {
+        return countries;
+    }
 
-void addWordsAnimals(std::vector<std::string> & animals);
+    std::vector<std::string> getFood() {
+        return food;
+    }
 
-void addWordsNames(std::vector<std::string> & names);
+    std::vector<std::string> getAnimals() {
+        return animals;
+    }
 
-void askPlayerName(std::string & name);
+    std::vector<std::string> getNames() {
+        return names;
+    }
+
+    std::string getPlayerName() const {
+        return playerName;
+    }
+
+    void clearScreen();
+
+    void addWordsCountries();
+
+    void addWordsFood();
+
+    void addWordsAnimals();
+
+    void addWordsNames();
+  
+    void askPlayerName();
+};
 
 #endif
