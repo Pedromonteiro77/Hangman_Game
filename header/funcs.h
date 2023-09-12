@@ -34,13 +34,22 @@ public:
     }
 
     void clearScreen();
-
     void addWordsCountries();
     void addWordsFood();
     void addWordsAnimals();
     void addWordsNames();
-
     void askPlayerName();
+
+    void start() {
+        clearScreen();
+
+        addWordsCountries();
+        addWordsFood();
+        addWordsAnimals();
+        addWordsNames();
+
+        askPlayerName();
+    }
 };
 
 #endif
