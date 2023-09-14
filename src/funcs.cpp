@@ -34,8 +34,6 @@ void HangmanGame::addWordsNames() {
 }
 
 void HangmanGame::askPlayerName() {
-    char opc;
-
     while(true) {
         std::cout << "Digite o seu nome: ";
         std::getline(std::cin, playerName);
@@ -66,4 +64,90 @@ void HangmanGame::askPlayerName() {
     }
 
     std::cout << "Ola " << playerName << " e um prazer ter voce jogando meu jogo! (^-^)" << std::endl;
+    std::cout << "Pressione Enter Para Continuar...";
+    std::cin.get();
+    clearScreen();
+}
+
+void HangmanGame::chooseTheTheme() {
+    while(true) {
+        std::cout << "Agora Vamos Escolher um Tema Para Podermos Comecar" << std::endl;
+        std::cout << "1 - Paises, 2 - Comidas, 3 - Animais, 4 - Nomes de Pessoas" << std::endl;
+        std::cout << "Digite o Numero do Tema Escolhido: "; 
+        std::cin >> indice;
+        std::cin.ignore();
+
+        if(indice != 1 && indice != 2 && indice != 3 && indice != 4) {
+            std::cout << "Desculpe Mais Numero Invalida Digite um Numero Valido!" << std::endl;
+            std::cout << "Aperte Enter para continuar...";
+            std::cin.get();
+            clearScreen();
+            continue;
+        }
+
+        else {
+            if(indice == 1) {
+                std::cout << "Voce Escolheu Paises Voce confirma? sim(s)/nao(n): ";
+                std::cin >> opc;
+
+                if(opc == 's' || opc == 'S') {
+                    std::cout << "Ok " << playerName << " Vamos de Tema Paises!";
+                    break;
+                }
+                else {
+                    clearScreen();
+                    continue;
+                }
+            }
+
+            else if(indice == 2) {
+                std::cout << "Voce Escolheu Comida Voce confirma? sim(s)/nao(n): ";
+                std::cin >> opc;
+
+                if(opc == 's' || opc == 'S') {
+                    std::cout << "Ok " << playerName << " Vamos de Tema Comida!";
+                    break;
+                }
+                else {
+                    clearScreen();
+                    continue;
+                }
+            }
+
+            else if(indice == 3) {
+                std::cout << "Voce Escolheu Animais Voce confirma? sim(s)/nao(n): ";
+                std::cin >> opc;
+
+                if(opc == 's' || opc == 'S') {
+                    std::cout << "Ok " << playerName << " Vamos de Tema Animais!";
+                    break;
+                }
+                else {
+                    clearScreen();
+                    continue;
+                }
+            }
+
+            else if(indice == 4) {
+                std::cout << "Voce Escolheu Nomes Voce confirma? sim(s)/nao(n): ";
+                std::cin >> opc;
+
+                if(opc == 's' || opc == 'S') {
+                    std::cout << "Ok " << playerName << " Vamos de Tema Nomes!";
+                    break;
+                }
+                else {
+                    clearScreen();
+                    continue;
+                }
+            }
+
+            break;
+        }
+    }
+    clearScreen();
+}
+
+void HangmanGame::playGame() {
+    std::cout << "Funcionando";
 }

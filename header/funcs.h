@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <random>
 
 class HangmanGame {
 private:
@@ -11,8 +13,25 @@ private:
     std::vector<std::string> food;
     std::vector<std::string> animals;
     std::vector<std::string> names;
+    int indice;
+    char opc;
 
 public:
+    void start() {
+        clearScreen();
+
+        addWordsCountries();
+        addWordsFood();
+        addWordsAnimals();
+        addWordsNames();
+
+        askPlayerName();
+
+        chooseTheTheme();
+
+        playGame();
+    }
+    
     std::vector<std::string> getCountries() const {
         return countries;
     }
@@ -33,23 +52,22 @@ public:
         return playerName;
     }
 
+    int getIndice() const {
+        return indice;
+    }
+
+    char getOpc() const {
+        return opc;
+    }
+
     void clearScreen();
     void addWordsCountries();
     void addWordsFood();
     void addWordsAnimals();
     void addWordsNames();
     void askPlayerName();
-
-    void start() {
-        clearScreen();
-
-        addWordsCountries();
-        addWordsFood();
-        addWordsAnimals();
-        addWordsNames();
-
-        askPlayerName();
-    }
+    void chooseTheTheme();
+    void playGame();
 };
 
 #endif
