@@ -19,7 +19,7 @@ private:
 public:
     void start() {
         clearScreen();
-
+        
         addWordsCountries();
         addWordsFood();
         addWordsAnimals();
