@@ -148,6 +148,10 @@ void HangmanGame::chooseTheTheme() {
                     clearScreen();
                     continue;
                 }
+                break;
+
+                default:
+                    break;
             }
 
             break;
@@ -206,11 +210,13 @@ void HangmanGame::showTheme() {
 void HangmanGame::playGame() {
     prepareTheGame();
     std::string keepTheRandomWord(randomWord.size(), '_');
+    int attempts = 5;
     char letter;
     
     while(true) {
         showTitleName();
         showTheme();
+        std::cout << "Voce Tem " << attempts << " Tentativas" << std::endl;
         bool found = false;
 
         for(size_t i = 0; i < keepTheRandomWord.size(); i++) {
@@ -240,6 +246,7 @@ void HangmanGame::playGame() {
         }
         else {
             std::cout << "Errou" << std::endl;
+            --attempts;
             std::cout << "Aperte Enter Para Continuar...";
             std::cin.get();
             clearScreen();
@@ -247,6 +254,10 @@ void HangmanGame::playGame() {
 
         if(keepTheRandomWord == randomWord) {
             std::cout << "Parabens Voce Descobriu a Palavra !(^_^)!";
+            break;
+        }
+        else if(attempts == 0) {
+            std::cout << "Lamento suas tentativas acabaram.";
             break;
         }
     }
