@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <cctype>
 
 class HangmanGame {
 private:
@@ -19,7 +20,6 @@ private:
 
 public:
     void start() {
-
         clearScreen();
 
         askPlayerName();
@@ -61,7 +61,6 @@ public:
         return opc;
     }
 
-    void generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand);
     void showTitleName();
     void clearScreen();
     void addWordsCountries();
@@ -70,6 +69,10 @@ public:
     void addWordsNames();
     void askPlayerName();
     void chooseTheTheme();
+    void generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand);
+    void prepareTheGame();
+    void showTheme();
+    
     void playGame();
 };
 

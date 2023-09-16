@@ -166,31 +166,88 @@ void HangmanGame::generatesRandomWord(std::vector<std::string> & vec, std::strin
     wordRand = vec[0];
 }
 
-void HangmanGame::playGame() {
+void HangmanGame::prepareTheGame() {
     showTitleName();
 
     if(indice == 1) {
         addWordsCountries();
-        generatesRandomWord(countries, randomWord);
-
-        std::cout << randomWord;
+        generatesRandomWord(countries, randomWord);       
     }
     else if(indice == 2) {
         addWordsFood();
         generatesRandomWord(food, randomWord);
-
-        std::cout << randomWord;
     }
     else if(indice == 3) {
         addWordsAnimals();
         generatesRandomWord(animals, randomWord);
-
-        std::cout << randomWord;
     }
     else if(indice == 4) {
         addWordsNames();
         generatesRandomWord(names, randomWord);
+    }
+    clearScreen();
+}
 
-        std::cout << randomWord;
+void HangmanGame::showTheme() {
+    if(indice == 1) {
+        std::cout << "Tema: Paises" << std::endl;
+    }
+    else if(indice == 2) {
+        std::cout << "Tema: Comidas" << std::endl;
+    }
+    else if(indice == 3) {
+        std::cout << "Tema: Animais" << std::endl;
+    }
+    else if(indice == 4) {
+        std::cout << "Tema: Nome de Pessoas" << std::endl;
+    }
+}
+
+void HangmanGame::playGame() {
+    prepareTheGame();
+    std::string keepTheRandomWord(randomWord.size(), '_');
+    char letter;
+    
+    while(true) {
+        showTitleName();
+        showTheme();
+        bool found = false;
+
+        for(size_t i = 0; i < keepTheRandomWord.size(); i++) {
+            std::cout << keepTheRandomWord[i] << " ";
+        }
+
+        std::cout << std::endl;
+
+        std::cout << "Digite a Letra que deseja tentar: ";
+        std::cin >> letter;
+        std::cin.ignore();
+
+        letter = std::toupper(letter);
+
+        for(size_t c = 0; c < randomWord.size(); c++) {
+            if(randomWord[c] == letter) {
+                found = true;
+                keepTheRandomWord[c] = letter;
+            }
+        }
+
+        if(found) {
+            std::cout << "Acertou" << std::endl;
+            std::cout << "Aperte Enter Para Continuar...";
+            std::cin.get();
+            clearScreen();
+        }
+        else {
+            std::cout << "Errou" << std::endl;
+            std::cout << "Aperte Enter Para Continuar...";
+            std::cin.get();
+            clearScreen();
+        }
+
+        if(keepTheRandomWord == randomWord) {
+            std::cout << "Parabens Voce Descobriu a Palavra !(^_^)!";
+            break;
+        }
     }
 }

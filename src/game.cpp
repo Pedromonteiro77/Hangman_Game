@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <random>
+#include <cctype>
 #include "..\header\funcs.h"
 
 int main() { 
