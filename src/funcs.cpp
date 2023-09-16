@@ -1,6 +1,10 @@
 #include <iostream>
 #include "..\header\funcs.h"
 
+void HangmanGame::showTitleName() {
+    std::cout << "===== JOGO DA FORCA =====" << "\n";
+}
+
 void HangmanGame::clearScreen() {
     std::system("cls");
 }
@@ -35,7 +39,7 @@ void HangmanGame::addWordsNames() {
 
 void HangmanGame::askPlayerName() {
     while(true) {
-        std::cout << "===== JOGO DA FORCA =====" << "\n";
+        showTitleName();
         std::cout << "Digite o seu nome: ";
         std::getline(std::cin, playerName);
 
@@ -73,7 +77,7 @@ void HangmanGame::askPlayerName() {
 
 void HangmanGame::chooseTheTheme() {
     while(true) {
-        std::cout << "===== JOGO DA FORCA =====" << "\n";
+        showTitleName();
         std::cout << "Agora Vamos Escolher um Tema Para Podermos Comecar" << std::endl;
         std::cout << "1 - Paises, 2 - Comidas, 3 - Animais, 4 - Nomes de Pessoas" << std::endl;
         std::cout << "Digite o Numero do Tema Escolhido: "; 
@@ -152,11 +156,41 @@ void HangmanGame::chooseTheTheme() {
     clearScreen();
 }
 
+void HangmanGame::generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand) {
+    std::random_device aleatorio;
+
+    std::mt19937 rng(aleatorio());
+
+    std::shuffle(vec.begin(), vec.end(), rng);
+
+    wordRand = vec[0];
+}
+
 void HangmanGame::playGame() {
-    std::cout << "===== JOGO DA FORCA =====" << "\n";
+    showTitleName();
+
     if(indice == 1) {
-        for(auto & i : countries) {
-            std::cout << i << "\n";
-        }
+        addWordsCountries();
+        generatesRandomWord(countries, randomWord);
+
+        std::cout << randomWord;
+    }
+    else if(indice == 2) {
+        addWordsFood();
+        generatesRandomWord(food, randomWord);
+
+        std::cout << randomWord;
+    }
+    else if(indice == 3) {
+        addWordsAnimals();
+        generatesRandomWord(animals, randomWord);
+
+        std::cout << randomWord;
+    }
+    else if(indice == 4) {
+        addWordsNames();
+        generatesRandomWord(names, randomWord);
+
+        std::cout << randomWord;
     }
 }

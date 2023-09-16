@@ -9,6 +9,7 @@
 class HangmanGame {
 private:
     std::string playerName;
+    std::string randomWord;
     std::vector<std::string> countries;
     std::vector<std::string> food;
     std::vector<std::string> animals;
@@ -18,12 +19,8 @@ private:
 
 public:
     void start() {
+
         clearScreen();
-        
-        addWordsCountries();
-        addWordsFood();
-        addWordsAnimals();
-        addWordsNames();
 
         askPlayerName();
 
@@ -52,6 +49,10 @@ public:
         return playerName;
     }
 
+    std::string getRandomWord() const {
+        return randomWord;
+    }
+
     int getIndice() const {
         return indice;
     }
@@ -60,6 +61,8 @@ public:
         return opc;
     }
 
+    void generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand);
+    void showTitleName();
     void clearScreen();
     void addWordsCountries();
     void addWordsFood();
