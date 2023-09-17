@@ -2,8 +2,8 @@
 #define FUNCS_H
 
 #include <cstdlib>
-#include <string>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include <random>
 #include <cctype>
@@ -40,7 +40,7 @@ public:
             }
             else {
                 clearScreen();
-                std::cout << "Obrigado por ter Jogado!!!" << std::endl;
+                std::cout << "Obrigado por ter Jogado" << std::endl;
                 break;
             }
         }

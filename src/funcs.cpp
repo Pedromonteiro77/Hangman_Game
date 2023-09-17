@@ -259,7 +259,7 @@ void HangmanGame::playGame() {
         }
         else if(attempts == 0) {
             std::cout << "A Palavra era: " << randomWord << std::endl;
-            std::cout << "Lamento suas tentativas acabaram." << std::endl;
+            std::cout << "Lamento suas tentativas acabaram |(-_-)|" << std::endl;
             break;
         }
     }
