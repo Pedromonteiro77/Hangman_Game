@@ -1,6 +1,7 @@
 #ifndef FUNCS_H
 #define FUNCS_H
 
+#include <cstdlib>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -24,9 +25,25 @@ public:
 
         askPlayerName();
 
-        chooseTheTheme();
+        while(true) {
+            chooseTheTheme();
 
-        playGame();
+            playGame();
+
+            std::cout << "Desejar jogar outra partida? sim(s)/nao(n): ";
+            std::cin >> opc;
+            std::cin.ignore();
+
+            if(opc == 's' || opc == 'S') {
+                clearScreen();
+                continue;
+            }
+            else {
+                clearScreen();
+                std::cout << "Obrigado por ter Jogado!!!" << std::endl;
+                break;
+            }
+        }
     }
     
     std::vector<std::string> getCountries() const {

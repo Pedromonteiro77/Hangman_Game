@@ -1,6 +1,7 @@
 #include <iostream>
-#include <vector>
+#include <cstdlib>
 #include <string>
+#include <vector>
 #include <algorithm>
 #include <random>
 #include <cctype>

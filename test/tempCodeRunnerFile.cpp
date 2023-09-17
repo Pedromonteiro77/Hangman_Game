@@ -1,1 +1,0 @@
-while(!word.empty()) {
