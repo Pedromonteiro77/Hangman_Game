@@ -8,7 +8,8 @@
 #include <random>
 #include <cctype>
 
-class HangmanGame {
+class HangmanGame
+{
 private:
     std::string playerName;
     std::string randomWord;
@@ -20,12 +21,14 @@ private:
     char opc;
 
 public:
-    void start() {
+    void start()
+    {
         clearScreen();
 
         askPlayerName();
 
-        while(true) {
+        while (true)
+        {
             chooseTheTheme();
 
             playGame();
@@ -34,48 +37,18 @@ public:
             std::cin >> opc;
             std::cin.ignore();
 
-            if(opc == 's' || opc == 'S') {
+            if (opc == 's' || opc == 'S')
+            {
                 clearScreen();
                 continue;
             }
-            else {
+            else
+            {
                 clearScreen();
                 std::cout << "Obrigado por ter Jogado" << std::endl;
                 break;
             }
         }
-    }
-    
-    std::vector<std::string> getCountries() const {
-        return countries;
-    }
-
-    std::vector<std::string> getFood() const {
-        return food;
-    }
-
-    std::vector<std::string> getAnimals() const {
-        return animals;
-    }
-
-    std::vector<std::string> getNames() const {
-        return names;
-    }
-
-    std::string getPlayerName() const {
-        return playerName;
-    }
-
-    std::string getRandomWord() const {
-        return randomWord;
-    }
-
-    int getIndice() const {
-        return indice;
-    }
-
-    char getOpc() const {
-        return opc;
     }
 
     void showTitleName();
@@ -86,10 +59,9 @@ public:
     void addWordsNames();
     void askPlayerName();
     void chooseTheTheme();
-    void generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand);
+    void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
     void prepareTheGame();
     void showTheme();
-    
     void playGame();
 };
 

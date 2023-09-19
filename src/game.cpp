@@ -7,7 +7,8 @@
 #include <cctype>
 #include "..\header\funcs.h"
 
-int main() { 
+int main()
+{
     HangmanGame game;
 
     game.start();
