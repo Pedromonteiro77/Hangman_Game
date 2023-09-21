@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <random>
 #include <cctype>
+#include <set>
 
 class HangmanGame
 {
@@ -19,6 +20,7 @@ private:
     std::vector<std::string> names;
     int indice;
     char opc;
+    char letter;
 
 public:
     void start()
@@ -62,6 +64,8 @@ public:
     void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
     void prepareTheGame();
     void showTheme();
+    void showLetterList(std::set<char> & keepTheLetter);
+    void verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter);
     void playGame();
 };
 

@@ -5,7 +5,8 @@
 #include <algorithm>
 #include <random>
 #include <cctype>
-#include "..\header\funcs.h"
+#include <set>
+#include "..\header\hangman.h"
 
 int main()
 {
