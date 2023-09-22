@@ -252,21 +252,16 @@ void HangmanGame::showLetterList(std::set<char> & keepTheLetter)
 
 void HangmanGame::verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter)
 {
-    while(true) 
+    if(keepTheLetter.count(letter) > 0)
     {
-        if(keepTheLetter.count(letter) > 0)
-        {
-            std::cout << "Voce Ja tentou essa letra tente outra.\n";
-            std::cout << "Aperte Enter Para Continuar...";
-            std::cin.get();
-            clearScreen();
-            break;
-        }
-        else
-        {
-            keepTheLetter.insert(letter);
-            break;
-        }
+        std::cout << "Voce Ja tentou essa letra tente outra.\n";
+        std::cout << "Aperte Enter Para Continuar...";
+        std::cin.get();
+        clearScreen();
+    }
+    else
+    {
+        keepTheLetter.insert(letter);
     }
 }
 

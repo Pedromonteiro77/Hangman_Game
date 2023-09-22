@@ -22,6 +22,18 @@ private:
     char opc;
     char letter;
 
+    void showTitleName();
+    void clearScreen();
+    void addWordsCountries();
+    void addWordsFood();
+    void addWordsAnimals();
+    void addWordsNames();
+    void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
+    void prepareTheGame();
+    void showTheme();
+    void showLetterList(std::set<char> & keepTheLetter);
+    void verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter);
+    
 public:
     void start()
     {
@@ -53,19 +65,8 @@ public:
         }
     }
 
-    void showTitleName();
-    void clearScreen();
-    void addWordsCountries();
-    void addWordsFood();
-    void addWordsAnimals();
-    void addWordsNames();
     void askPlayerName();
     void chooseTheTheme();
-    void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
-    void prepareTheGame();
-    void showTheme();
-    void showLetterList(std::set<char> & keepTheLetter);
-    void verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter);
     void playGame();
 };
 
