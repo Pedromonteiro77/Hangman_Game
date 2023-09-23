@@ -56,7 +56,6 @@ void HangmanGame::askPlayerName()
             clearScreen();
             continue;
         }
-
         else
         {
             std::cout << "Seu nome e " << playerName << " esta correto? sim(s)/nao(n): ";
@@ -67,7 +66,6 @@ void HangmanGame::askPlayerName()
             {
                 break;
             }
-
             else
             {
                 clearScreen();
