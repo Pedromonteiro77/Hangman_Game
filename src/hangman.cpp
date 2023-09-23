@@ -101,80 +101,77 @@ void HangmanGame::chooseTheTheme()
             continue;
         }
 
-        else
+        switch(indice)
         {
-            switch(indice)
+        case 1:
+            std::cout << "Voce Escolheu Paises Voce confirma? sim(s)/nao(n): ";
+            std::cin >> opc;
+
+            if(opc == 's' || opc == 'S')
             {
-            case 1:
-                std::cout << "Voce Escolheu Paises Voce confirma? sim(s)/nao(n): ";
-                std::cin >> opc;
-
-                if(opc == 's' || opc == 'S')
-                {
-                    std::cout << "Ok " << playerName << " Vamos de Tema Paises!";
-                    break;
-                }
-                else
-                {
-                    clearScreen();
-                    continue;
-                }
-                break;
-
-            case 2:
-                std::cout << "Voce Escolheu Comida Voce confirma? sim(s)/nao(n): ";
-                std::cin >> opc;
-
-                if(opc == 's' || opc == 'S')
-                {
-                    std::cout << "Ok " << playerName << " Vamos de Tema Comida!";
-                    break;
-                }
-                else
-                {
-                    clearScreen();
-                    continue;
-                }
-                break;
-
-            case 3:
-                std::cout << "Voce Escolheu Animais Voce confirma? sim(s)/nao(n): ";
-                std::cin >> opc;
-
-                if(opc == 's' || opc == 'S')
-                {
-                    std::cout << "Ok " << playerName << " Vamos de Tema Animais!";
-                    break;
-                }
-                else
-                {
-                    clearScreen();
-                    continue;
-                }
-                break;
-
-            case 4:
-                std::cout << "Voce Escolheu Nomes Voce confirma? sim(s)/nao(n): ";
-                std::cin >> opc;
-
-                if(opc == 's' || opc == 'S')
-                {
-                    std::cout << "Ok " << playerName << " Vamos de Tema Nomes!";
-                    break;
-                }
-                else
-                {
-                    clearScreen();
-                    continue;
-                }
-                break;
-
-            default:
+                std::cout << "Ok " << playerName << " Vamos de Tema Paises!";
                 break;
             }
+            else
+            {
+                clearScreen();
+                continue;
+            }
+            break;
 
+        case 2:
+            std::cout << "Voce Escolheu Comida Voce confirma? sim(s)/nao(n): ";
+            std::cin >> opc;
+
+            if(opc == 's' || opc == 'S')
+            {
+                std::cout << "Ok " << playerName << " Vamos de Tema Comida!";
+                break;
+            }
+            else
+            {
+                clearScreen();
+                continue;
+            }
+            break;
+
+        case 3:
+            std::cout << "Voce Escolheu Animais Voce confirma? sim(s)/nao(n): ";
+            std::cin >> opc;
+
+            if(opc == 's' || opc == 'S')
+            {
+                std::cout << "Ok " << playerName << " Vamos de Tema Animais!";
+                break;
+            }
+            else
+            {
+                clearScreen();
+                continue;
+            }
+            break;
+
+        case 4:
+            std::cout << "Voce Escolheu Nomes Voce confirma? sim(s)/nao(n): ";
+            std::cin >> opc;
+
+            if(opc == 's' || opc == 'S')
+            {
+                std::cout << "Ok " << playerName << " Vamos de Tema Nomes!";
+                break;
+            }
+            else
+            {
+                clearScreen();
+                continue;
+            }
+            break;
+
+        default:
             break;
         }
+
+        break;
     }
     clearScreen();
 }
