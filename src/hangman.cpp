@@ -305,9 +305,6 @@ void HangmanGame::playGame()
 
         if(found)
         {
-            std::cout << "Acertou" << std::endl;
-            std::cout << "Aperte Enter Para Continuar...";
-            std::cin.get();
             clearScreen();
         }
         else
