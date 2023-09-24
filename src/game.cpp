@@ -8,8 +8,7 @@
 #include <set>
 #include "..\header\hangman.h"
 
-int main()
-{
+int main() {
     HangmanGame game;
 
     game.start();

@@ -9,8 +9,7 @@
 #include <cctype>
 #include <set>
 
-class HangmanGame
-{
+class HangmanGame {
 private:
     std::string playerName;
     std::string randomWord;
@@ -35,14 +34,12 @@ private:
     void verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter);
     
 public:
-    void start()
-    {
+    void start() {
         clearScreen();
 
         askPlayerName();
 
-        while (true)
-        {
+        while (true) {
             chooseTheTheme();
 
             playGame();
@@ -51,13 +48,12 @@ public:
             std::cin >> opc;
             std::cin.ignore();
 
-            if (opc == 's' || opc == 'S')
-            {
+            if (opc == 's' || opc == 'S') {
                 clearScreen();
                 continue;
             }
-            else
-            {
+            
+            else {
                 clearScreen();
                 std::cout << "Obrigado por ter Jogado" << std::endl;
                 break;
