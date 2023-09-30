@@ -123,6 +123,7 @@ void HangmanGame::chooseTheTheme() {
                 std::cout << "Ok " << playerName << " Vamos de " << chosenTheme << '\n';
                 break;
             }
+            
             else {
                 clearScreen();
                 continue;
