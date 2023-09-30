@@ -1,9 +1,9 @@
 #ifndef FUNCS_H
 #define FUNCS_H
 
-#include <cstdlib>
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include <algorithm>
 #include <random>
 #include <cctype>
@@ -12,10 +12,13 @@
 class HangmanGame {
 private:
     std::string playerName;
+    std::vector<std::string> themes;
     std::vector<std::string> countries;
     std::vector<std::string> food;
     std::vector<std::string> animals;
     std::vector<std::string> names;
+    std::vector<std::string> fruits;
+    std::string chosenTheme;
     std::string randomWord;
     int indice;
     int attempts;
@@ -24,10 +27,12 @@ private:
 
     void showTitleName();
     void clearScreen();
+    void addWordThemes();
     void addWordsCountries();
     void addWordsFood();
     void addWordsAnimals();
     void addWordsNames();
+    void addWordsFruits();
     void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
     void prepareTheGame();
     void showTheme();
