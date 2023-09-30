@@ -143,7 +143,7 @@ void HangmanGame::chooseTheTheme() {
     clearScreen();
 }
 
-void HangmanGame::generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand) {
+void HangmanGame::generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand) {
     std::random_device aleatorio;
 
     std::mt19937 rng(aleatorio());
