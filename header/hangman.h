@@ -33,45 +33,19 @@ private:
     void addWordsAnimals();
     void addWordsNames();
     void addWordsFruits();
-    void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
+    void askPlayerName();
+    void generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand);
     void prepareTheGame();
     void showTheme();
     void showLetterList(std::set<char> & keepTheLetter);
     void verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter);
+    void chooseTheTheme();
+    void gameWorking();
     
 public:
     HangmanGame();
 
-    void start() {
-        clearScreen();
-
-        askPlayerName();
-
-        while (true) {
-            chooseTheTheme();
-
-            playGame();
-
-            std::cout << "Desejar jogar outra partida? sim(s)/nao(n): ";
-            std::cin >> opc;
-            std::cin.ignore();
-
-            if (opc == 's' || opc == 'S') {
-                clearScreen();
-                continue;
-            }
-            
-            else {
-                clearScreen();
-                std::cout << "Obrigado por ter Jogado" << std::endl;
-                break;
-            }
-        }
-    }
-
-    void askPlayerName();
-    void chooseTheTheme();
-    void playGame();
+    void play(); 
 };
 
 #endif
