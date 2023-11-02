@@ -9,7 +9,8 @@
 #include <cctype>
 #include <set>
 
-class HangmanGame {
+class HangmanGame
+{
 private:
     std::string playerName;
     std::vector<std::string> themes;
@@ -34,18 +35,18 @@ private:
     void addWordsNames();
     void addWordsFruits();
     void askPlayerName();
-    void generatesRandomWord(std::vector<std::string> & vec, std::string & wordRand);
+    void generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand);
     void prepareTheGame();
     void showTheme();
-    void showLetterList(std::set<char> & keepTheLetter);
-    void verifyAlreadyLetter(std::set<char> & keepTheLetter, char & letter);
+    void showLetterList(std::set<char> &keepTheLetter);
+    void verifyAlreadyLetter(std::set<char> &keepTheLetter, char &letter);
     void chooseTheTheme();
     void gameWorking();
-    
+
 public:
     HangmanGame();
 
-    void play(); 
+    void play();
 };
 
 #endif
