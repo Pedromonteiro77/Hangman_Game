@@ -1,0 +1,69 @@
+#include <iostream>
+#include "..\header\menu.hpp"
+#include "..\header\screen_clear.hpp"
+
+Menu::Menu() : option_(0) {}
+
+void Menu::optionsMenu()
+{   
+    std::string strOption;
+    bool isInt {true};
+
+    while(true)
+    {
+        try
+        {
+            std::cout << "Options Menu" << '\n';
+            std::cout << "1 - Play Game" << '\n';
+            std::cout << "2 - Options" << '\n';
+            std::cout << "3 - Exit Game" << '\n';
+            std::cout << "Choose an option: ";
+            std::getline(std::cin, strOption);
+
+            if(strOption.empty() || strOption.length() > 1)
+            {
+                throw std::invalid_argument("INVALID! Don't leave the field empty and Enter one of the options");
+            }
+
+            for(auto & i : strOption)
+            {
+                if(!std::isdigit(i))
+                {
+                    isInt = false;
+                    break;
+                }
+            }
+
+            if(!isInt)
+            {
+                throw std::invalid_argument("INVALID! Enter one of the options");
+            }
+
+            option_ = std::stoi(strOption);
+
+            if(option_ < 1 || option_ > 3)
+            {
+                throw std::invalid_argument("INVALID! Enter a number between 1 and 3");
+            }
+
+            break;
+        }
+
+        catch(const std::invalid_argument & e)
+        {
+            std::cerr << e.what() << '\n';
+            std::cout << "Press Enter to continue...";
+            std::cin.get();
+            strOption.clear();
+            Screen::clear();
+            continue;
+        }
+    }
+
+    Screen::clear();
+}
+
+const unsigned int Menu::getOption() const
+{
+    return option_;
+}

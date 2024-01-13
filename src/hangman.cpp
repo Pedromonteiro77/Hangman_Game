@@ -1,361 +1,282 @@
 #include <iostream>
-#include "..\header\hangman.h"
+#include <algorithm>
+#include <random>
+#include <vector>
+#include "..\header\hangman.hpp"
+#include "..\header\screen_clear.hpp"
 
-HangmanGame::HangmanGame()
-    : playerName(""),
-      themes({}),
-      countries({}),
-      food({}),
-      animals({}),
-      names({}),
-      randomWord(""),
-      indice(0),
-      attempts(0),
-      opc('N')
+// Construtor da classe inicializando as variaveis
+Hangman::Hangman() 
+:   themes_({}),
+    peopleName_({}),
+    fruits_({}),
+    countries_({}),
+    foods_({}),
+    playerName_(""),
+    yesOrNot_(""),
+    word_(""),
+    themeIndex_(0),
+    letter_('Y'),
+    attempts_(0)
 {}
 
-void HangmanGame::showTitleName()
+void Hangman::writeThemes()
 {
-    std::cout << "===== JOGO DA FORCA =====" << "\n";
+    themes_ = {
+       "PEOPLE_NAME", "FRUITS", "COUNTRIES", "FOODS" 
+    };
 }
 
-void HangmanGame::clearScreen()
+void Hangman::writePeopleName()
 {
-    std::system("cls");
+    peopleName_ = {
+        "LUCY", "JILL", "STACY", "LEON", "SASHA",
+        "JHON", "BELLA", "JAMES", "MAYA", "SAGE"
+    };
 }
 
-void HangmanGame::addWordThemes()
+void Hangman::writeFruits()
 {
-    themes = {
-        "Paises", "Comidas", "Animais", "Nomes de pessoas", "Frutas"};
+    fruits_ = {
+        "STRAWBERRY", "JACKFRUIT", "ORANGE", "GRAPE", "WATERMELON",
+        "BANANA", "MANGO", "PEAR", "RASPBERRY", "AVOCADO" 
+    };
 }
 
-void HangmanGame::addWordsCountries()
+void Hangman::writeCountries()
 {
-    countries = {
-        "BRASIL", "ARGENTINA", "RUSSIA", "PERU", "MEXICO",
-        "EGITO", "UCRANIA", "UGANDA", "ESPANHA", "CHINA"};
+    countries_ = {
+        "FRANCE", "GERMANY", "BRAZIL", "NETHERLANDS", "JAPAN",
+        "SPAIN", "CHINA", "RUSSIA", "INDIA", "SWITZERLAND"
+    };
 }
 
-void HangmanGame::addWordsFood()
+void Hangman::writeFoods()
 {
-    food = {
-        "PIZZA", "HAMBURGUER", "TACOS", "FEIJOADA", "LASANHA",
-        "CHURRASCO", "ESTROGONOFE", "SUSHI", "CURRY", "ACARAJE"};
+    foods_ = {
+        "PIZZA", "LASAGNA", "BARBECUE", "CURRY", "SUSHI",
+        "TACOS", "BURGER", "HOTDOG", "RAMEN", "SOUP"
+    };
 }
 
-void HangmanGame::addWordsAnimals()
+void Hangman::yesOrNotVerify(const std::string & textParam, std::string & yesNotParam)
 {
-    animals = {
-        "GATO", "CACHORRO", "TIGRE", "CROCODILO", "GAIVOTA",
-        "JAVALI", "LEBRE", "URSO", "MORCEGO", "PANDA"};
-}
-
-void HangmanGame::addWordsNames()
-{
-    names = {
-        "JULIA", "MARIA", "CARLOS", "GABRIEL", "SOPHIA",
-        "BRUNO", "MIGUEL", "ARTHUR", "HELENA", "LAURA"};
-}
-
-void HangmanGame::addWordsFruits()
-{
-    fruits = {
-        "ABACATE", "FRAMBOESA", "DAMASCO", "UVA", "FIGO",
-        "LIMAO", "MANGA", "BANANA", "AMORA", "ABACAXI"};
-}
-
-void HangmanGame::askPlayerName()
-{
-    while (true)
+    while(true)
     {
-        showTitleName();
-        std::cout << "Digite o seu nome: ";
-        std::getline(std::cin, playerName);
+        std::cout << textParam;
+        std::cin >> yesNotParam;
+        std::cin.ignore();
 
-        if (playerName.empty())
+        if(!(yesNotParam == "y" || yesNotParam == "Y" || yesNotParam == "n" || yesNotParam == "N"))
         {
-            std::cout << "Desculpe mais nao pode deixar vazio, por favor digite seu nome ou nickname que deseja usar!" << '\n';
-            std::cout << "Pressione Enter para continuar...";
+            std::cerr << "INVALID! Please type Y or N.";
             std::cin.get();
-            clearScreen();
+            Screen::clear();
             continue;
         }
+        
+        break;
+    }
+}
 
-        else
+void Hangman::askPlayerName()
+{
+    while(true)
+    {
+        try
         {
-            std::cout << "Seu nome e " << playerName << " esta correto? sim(s)/nao(n): ";
-            std::cin >> opc;
-            std::cin.ignore();
+            std::cout << "Type your Name: ";
+            std::getline(std::cin, playerName_);
 
-            if (opc == 's' || opc == 'S')
+            if(playerName_.empty())
             {
+                throw std::invalid_argument("INVALID! Don't leave the field empty.");
+            }
+
+            yesOrNotVerify("Your name is " + playerName_ + " do you confirm? (Y/N): ", yesOrNot_);
+
+            if(yesOrNot_ == "y" || yesOrNot_ == "Y")
+            {
+                Screen::clear();
+                yesOrNot_.clear();
                 break;
             }
 
-            else
-            {
-                clearScreen();
-                continue;
-            }
-        }
-    }
-
-    std::cout << "Ola " << playerName << " e um prazer ter voce jogando meu jogo!" << '\n';
-    std::cout << "Pressione Enter Para Continuar...";
-    std::cin.get();
-    clearScreen();
-}
-
-void HangmanGame::chooseTheTheme()
-{
-    addWordThemes();
-    while (true)
-    {
-        showTitleName();
-        std::cout << "Agora Vamos Escolher um Tema Para Podermos Comecar" << '\n';
-
-        for (auto i = 0; i < themes.size(); i++)
-        {
-            std::cout << i + 1 << " - " << themes[i] << '\n';
+            Screen::clear();
         }
 
-        std::cout << "Digite o numero do Tema escolhido: ";
-
-        if (std::cin >> indice && indice >= 1 && indice <= themes.size())
+        catch(const std::invalid_argument & e)
         {
-            std::cin.ignore();
-            chosenTheme = themes[indice - 1];
-            std::cout << "Voce Escolheu " << chosenTheme << '\n';
-            std::cout << "Voce Confirma sim(s)/nao(n): ";
-            std::cin >> opc;
-
-            if (opc == 's' || opc == 'S')
-            {
-                std::cout << "Ok " << playerName << " Vamos de " << chosenTheme << '\n';
-                break;
-            }
-
-            else
-            {
-                clearScreen();
-                continue;
-            }
-        }
-
-        else
-        {
-            std::cout << "Entrada invalida digite um numero entre 1 e " << themes.size() << '\n';
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Aperte Enter para continuar...";
+            std::cerr << e.what() << '\n';
+            std::cout << "Press Enter to continue...";
             std::cin.get();
-            clearScreen();
+            Screen::clear();
             continue;
         }
     }
-    clearScreen();
 }
 
-void HangmanGame::generatesRandomWord(std::vector<std::string> &vec, std::string &wordRand)
+void Hangman::randomWord(std::string & wordParam, std::array<std::string, 10> & arrayParam)
 {
-    std::random_device aleatorio;
+    std::random_device rand;
 
-    std::mt19937 rng(aleatorio());
+    std::mt19937 mt(rand());
 
-    std::shuffle(vec.begin(), vec.end(), rng);
+    std::shuffle(arrayParam.begin(), arrayParam.end(), mt);
 
-    wordRand = vec[0];
+    wordParam = arrayParam[0];
 }
 
-void HangmanGame::prepareTheGame()
+void Hangman::chooseTheme()
 {
-    if (indice == 1)
+    writeThemes();
+
+    while(true)
     {
-        addWordsCountries();
-        generatesRandomWord(countries, randomWord);
-    }
-
-    else if (indice == 2)
-    {
-        addWordsFood();
-        generatesRandomWord(food, randomWord);
-    }
-
-    else if (indice == 3)
-    {
-        addWordsAnimals();
-        generatesRandomWord(animals, randomWord);
-    }
-
-    else if (indice == 4)
-    {
-        addWordsNames();
-        generatesRandomWord(names, randomWord);
-    }
-
-    else if (indice == 5)
-    {
-        addWordsFruits();
-        generatesRandomWord(fruits, randomWord);
-    }
-}
-
-void HangmanGame::showTheme()
-{
-    if (indice == 1)
-    {
-        std::cout << "Tema: Paises" << '\n';
-    }
-
-    else if (indice == 2)
-    {
-        std::cout << "Tema: Comidas" << '\n';
-    }
-
-    else if (indice == 3)
-    {
-        std::cout << "Tema: Animais" << '\n';
-    }
-
-    else if (indice == 4)
-    {
-        std::cout << "Tema: Nome de Pessoas" << '\n';
-    }
-
-    else if (indice == 5)
-    {
-        std::cout << "Tema: Frutas" << '\n';
-    }
-}
-
-void HangmanGame::showLetterList(std::set<char> &keepTheLetter)
-{
-    std::cout << "Letras ja digitadas: ";
-
-    for (auto i : keepTheLetter)
-    {
-        std::cout << i << " - ";
-    }
-
-    std::cout << std::endl;
-}
-
-void HangmanGame::verifyAlreadyLetter(std::set<char> &keepTheLetter, char &letter)
-{
-    if (keepTheLetter.count(letter) > 0)
-    {
-        std::cout << "Voce Ja tentou essa letra tente outra." << '\n';
-        std::cout << "Aperte Enter Para Continuar...";
-        std::cin.get();
-        clearScreen();
-    }
-
-    else
-    {
-        keepTheLetter.insert(letter);
-    }
-}
-
-void HangmanGame::gameWorking()
-{
-    prepareTheGame();
-    std::string keepTheRandomWord(randomWord.size(), '_');
-    std::set<char> keepTheLetter;
-    attempts = 5;
-
-    while (true)
-    {
-        showTitleName();
-        showTheme();
-        std::cout << "Voce Tem " << attempts << " Tentativas" << '\n';
-        bool found{false};
-
-        for (size_t i = 0; i < keepTheRandomWord.size(); i++)
+        try
         {
-            std::cout << keepTheRandomWord[i] << " ";
+            for(auto i = 0; i < themes_.size(); i++)
+            {
+                std::cout << i+1 << " - " << themes_[i] << '\n';
+            }
+
+            std::cout << "Choose the number of a theme to play: ";
+            std::cin >> themeIndex_;
+
+            yesOrNotVerify("The Theme is " + themes_[themeIndex_-1] + " are you sure? (Y/N): ", yesOrNot_);
+
+            if(yesOrNot_ == "y" || yesOrNot_ == "Y")
+            {
+                Screen::clear();
+                yesOrNot_.clear();
+                break;
+            }
+
+            Screen::clear();
+        }
+
+        catch(const std::invalid_argument & e)
+        {
+            std::cerr << e.what() << '\n';
+            std::cout << "Press Enter to continue...";
+            std::cin.get();
+            Screen::clear();
+            continue;
+        }
+    }
+
+    switch(themeIndex_)
+    {
+        case 1:
+            writePeopleName();
+            randomWord(word_, peopleName_);
+            break;
+        
+        case 2:
+            writeFruits();
+            randomWord(word_, fruits_);
+            break;
+        
+        case 3:
+            writeCountries();
+            randomWord(word_, countries_);
+            break;
+
+        case 4:
+            writeFoods();
+            randomWord(word_, foods_);
+            break;
+
+        default:
+            std::cerr << "INVALID!";
+            break;
+    }
+}
+
+void Hangman::game()
+{
+    std::string underlineString(word_.size(), '_');
+    attempts_ = 5;
+    std::vector<char> wrongLetters;
+
+    std::cout << word_ << '\n';
+
+    while(true)
+    {
+        std::cout << "HANGMAN GAME" << '\n';
+        std::cout << "You have " << attempts_ << " attempts left" << '\n';
+
+        if(!wrongLetters.empty())
+        {   
+            std::cout << "Wrong Letters: ";
+            for(auto & i : wrongLetters)
+            {
+                std::cout << i << " ";
+            }
+
+            std::cout << '\n' << '\n';
+        }
+
+        for(auto i = 0; i < underlineString.size(); i++)
+        {
+            std::cout << underlineString[i] << " ";
         }
 
         std::cout << '\n';
 
-        std::cout << "Digite a Letra que deseja tentar: ";
-        std::cin >> letter;
+        std::cout << "Type a letter: ";
+        std::cin >> letter_;
         std::cin.ignore();
 
-        letter = std::toupper(letter);
+        letter_ = std::toupper(letter_);
 
-        for (size_t c = 0; c < randomWord.size(); c++)
+        bool rightLetter {false};
+        for(auto i = 0; i < word_.size(); i++)
         {
-            if (randomWord[c] == letter)
+            if(word_[i] == letter_)
             {
-                found = true;
-                keepTheRandomWord[c] = letter;
+                rightLetter = true;
+                underlineString[i] = letter_;              
             }
         }
 
-        verifyAlreadyLetter(keepTheLetter, letter);
-
-        if (found)
+        for(auto & i : wrongLetters)
         {
-            clearScreen();
+            if(letter_ == i)
+            {
+                std::cout << "You have already tried this letter!" << '\n';
+                std::cout << "Press Enter to continue...";
+                std::cin.get();
+                rightLetter = true;
+                continue;
+            }
         }
 
-        else
+        if(!rightLetter)
         {
-            std::cout << "Errou" << '\n';
-            --attempts;
-            std::cout << "Aperte Enter Para Continuar...";
+            wrongLetters.push_back(letter_);
+            std::cout << "Wrong letter!" << '\n';
+            --attempts_;
+            std::cout << "Press Enter to continue...";
             std::cin.get();
-            clearScreen();
         }
 
-        showLetterList(keepTheLetter);
+        Screen::clear();
 
-        if (keepTheRandomWord == randomWord)
+        if(underlineString == word_)
         {
-            clearScreen();
-            std::cout << "A Palavra era: " << randomWord << '\n';
-            std::cout << "Parabens Voce Descobriu a Palavra !(^_^)!" << '\n';
+            std::cout << "Congratulations you won";
+            std::cin.get();
             break;
         }
 
-        else if (attempts == 0)
+        if(attempts_ == 0)
         {
-            clearScreen();
-            std::cout << "A Palavra era: " << randomWord << '\n';
-            std::cout << "Lamento suas tentativas acabaram |(-_-)|" << '\n';
+            std::cout << "You lose";
+            std::cin.get();
             break;
         }
     }
-}
 
-void HangmanGame::play()
-{
-    clearScreen();
-
-    askPlayerName();
-
-    while (true)
-    {
-        chooseTheTheme();
-
-        gameWorking();
-
-        std::cout << playerName << " Voce Deseja jogar outra partida? sim(s)/nao(n): ";
-        std::cin >> opc;
-        std::cin.ignore();
-
-        if (opc == 's' || opc == 'S')
-        {
-            clearScreen();
-            continue;
-        }
-
-        else
-        {
-            clearScreen();
-            std::cout << "Obrigado por ter Jogado" << std::endl;
-            break;
-        }
-    }
+    Screen::clear();
 }
