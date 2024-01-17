@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include "..\header\menu.hpp"
 #include "..\header\screen_clear.hpp"
 
@@ -13,7 +14,7 @@ void Menu::optionsMenu()
     {
         try
         {
-            std::cout << "Options Menu" << '\n';
+            std::cout << "=== Options Menu ===" << '\n';
             std::cout << "1 - Play Game" << '\n';
             std::cout << "2 - Options" << '\n';
             std::cout << "3 - Exit Game" << '\n';

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cctype>
+#include <stdexcept>
 #include <algorithm>
 #include <random>
 #include <vector>
@@ -69,7 +71,8 @@ void Hangman::yesOrNotVerify(const std::string & textParam, std::string & yesNot
 
         if(!(yesNotParam == "y" || yesNotParam == "Y" || yesNotParam == "n" || yesNotParam == "N"))
         {
-            std::cerr << "INVALID! Please type Y or N.";
+            std::cerr << "INVALID! Please type Y or N" << '\n';
+            std::cout << "Press Enter to continue...";
             std::cin.get();
             Screen::clear();
             continue;
@@ -85,6 +88,7 @@ void Hangman::askPlayerName()
     {
         try
         {
+            std::cout << "=== HANGMAN GAME ===" << '\n';
             std::cout << "Type your Name: ";
             std::getline(std::cin, playerName_);
 
@@ -129,19 +133,35 @@ void Hangman::randomWord(std::string & wordParam, std::array<std::string, 10> & 
 
 void Hangman::chooseTheme()
 {
+    std::string strThemeIndex;
+
     writeThemes();
 
     while(true)
     {
         try
         {
+            std::cout << "=== THEMES ===" << '\n';
             for(auto i = 0; i < themes_.size(); i++)
             {
                 std::cout << i+1 << " - " << themes_[i] << '\n';
             }
 
             std::cout << "Choose the number of a theme to play: ";
-            std::cin >> themeIndex_;
+            std::cin >> strThemeIndex;
+            std::cin.ignore();
+
+            if(!std::all_of(strThemeIndex.begin(), strThemeIndex.end(), ::isdigit))
+            {
+                throw std::invalid_argument("INVALID! Type a number.");
+            }
+
+            themeIndex_ = std::stoi(strThemeIndex);
+
+            if(themeIndex_ < 1 || themeIndex_ > 4)
+            {
+                throw std::invalid_argument("INVALID! Choose one of the themes.");
+            }
 
             yesOrNotVerify("The Theme is " + themes_[themeIndex_-1] + " are you sure? (Y/N): ", yesOrNot_);
 
@@ -161,41 +181,39 @@ void Hangman::chooseTheme()
             std::cout << "Press Enter to continue...";
             std::cin.get();
             Screen::clear();
+            strThemeIndex.clear();
             continue;
         }
     }
 
-    switch(themeIndex_)
+    if(themeIndex_ == 1)
     {
-        case 1:
-            writePeopleName();
-            randomWord(word_, peopleName_);
-            break;
-        
-        case 2:
-            writeFruits();
-            randomWord(word_, fruits_);
-            break;
-        
-        case 3:
-            writeCountries();
-            randomWord(word_, countries_);
-            break;
+        writePeopleName();
+        randomWord(word_, peopleName_);
+    }
 
-        case 4:
-            writeFoods();
-            randomWord(word_, foods_);
-            break;
+    else if(themeIndex_ == 2)
+    {
+        writeFruits();
+        randomWord(word_, fruits_);
+    }
+    else if(themeIndex_ == 3)
+    {
+        writeCountries();
+        randomWord(word_, countries_);
+    }
 
-        default:
-            std::cerr << "INVALID!";
-            break;
+    else if(themeIndex_ == 4)
+    {
+        writeFoods();
+        randomWord(word_, foods_);
     }
 }
 
 void Hangman::game()
 {
     std::string underlineString(word_.size(), '_');
+    std::string strLetter;
     attempts_ = 5;
     std::vector<char> wrongLetters;
 
@@ -203,7 +221,8 @@ void Hangman::game()
 
     while(true)
     {
-        std::cout << "HANGMAN GAME" << '\n';
+        std::cout << "=== HANGMAN GAME ===" << '\n';
+        std::cout << "The Theme is " << themes_[themeIndex_-1] << '\n';
         std::cout << "You have " << attempts_ << " attempts left" << '\n';
 
         if(!wrongLetters.empty())
@@ -214,8 +233,10 @@ void Hangman::game()
                 std::cout << i << " ";
             }
 
-            std::cout << '\n' << '\n';
+            std::cout << '\n';
         }
+
+        std::cout << '\n';
 
         for(auto i = 0; i < underlineString.size(); i++)
         {
@@ -225,8 +246,30 @@ void Hangman::game()
         std::cout << '\n';
 
         std::cout << "Type a letter: ";
-        std::cin >> letter_;
+        std::cin >> strLetter;
         std::cin.ignore();
+
+        if(std::all_of(strLetter.begin(), strLetter.end(), ::isdigit))
+        {
+            std::cout << "INVALID! Type a letter" << '\n';
+            std::cout << "Press Enter to continue...";
+            std::cin.get();
+            strLetter.clear();
+            Screen::clear();
+            continue;
+        }
+
+        if(strLetter.length() > 1)
+        {
+            std::cout << "INVALID! type only a letter!" << '\n';
+            std::cout << "Press Enter to continue...";
+            std::cin.get();
+            strLetter.clear();
+            Screen::clear();
+            continue;
+        }
+
+        letter_ = strLetter[0];
 
         letter_ = std::toupper(letter_);
 
@@ -248,6 +291,7 @@ void Hangman::game()
                 std::cout << "Press Enter to continue...";
                 std::cin.get();
                 rightLetter = true;
+                strLetter.clear();
                 continue;
             }
         }
@@ -261,22 +305,26 @@ void Hangman::game()
             std::cin.get();
         }
 
+        strLetter.clear();
+
         Screen::clear();
 
         if(underlineString == word_)
         {
-            std::cout << "Congratulations you won";
-            std::cin.get();
+            std::cout << "Congratulations " << playerName_ << " you won!" << '\n';
             break;
         }
 
         if(attempts_ == 0)
         {
-            std::cout << "You lose";
-            std::cin.get();
+            std::cout << "Sorry " << playerName_ << " you lost" << '\n';
+            std::cout << "The word was " << word_ << '\n';
             break;
         }
     }
+}
 
-    Screen::clear();
+std::string Hangman::getYesOrNot()
+{
+    return yesOrNot_;
 }
