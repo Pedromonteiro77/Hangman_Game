@@ -22,6 +22,7 @@ Hangman::Hangman()
     attempts_(0)
 {}
 
+// Função que atribui strings para o array
 void Hangman::writeThemes()
 {
     themes_ = {
@@ -29,6 +30,7 @@ void Hangman::writeThemes()
     };
 }
 
+// Função que atribui strings para o array
 void Hangman::writePeopleName()
 {
     peopleName_ = {
@@ -37,6 +39,7 @@ void Hangman::writePeopleName()
     };
 }
 
+// Função que atribui strings para o array
 void Hangman::writeFruits()
 {
     fruits_ = {
@@ -45,6 +48,7 @@ void Hangman::writeFruits()
     };
 }
 
+// Função que atribui strings para o array
 void Hangman::writeCountries()
 {
     countries_ = {
@@ -53,6 +57,7 @@ void Hangman::writeCountries()
     };
 }
 
+// Função que atribui strings para o array
 void Hangman::writeFoods()
 {
     foods_ = {
@@ -61,13 +66,13 @@ void Hangman::writeFoods()
     };
 }
 
+// Função para não ter que ficar repetindo a verificação
 void Hangman::yesOrNotVerify(const std::string & textParam, std::string & yesNotParam)
 {
     while(true)
     {
         std::cout << textParam;
-        std::cin >> yesNotParam;
-        std::cin.ignore();
+        std::getline(std::cin, yesNotParam);
 
         if(!(yesNotParam == "y" || yesNotParam == "Y" || yesNotParam == "n" || yesNotParam == "N"))
         {
@@ -82,6 +87,7 @@ void Hangman::yesOrNotVerify(const std::string & textParam, std::string & yesNot
     }
 }
 
+// Função para o player digitar o nome
 void Hangman::askPlayerName()
 {
     while(true)
@@ -120,6 +126,7 @@ void Hangman::askPlayerName()
     }
 }
 
+// Função que pega um palavra aleatoria do array escolhido
 void Hangman::randomWord(std::string & wordParam, std::array<std::string, 10> & arrayParam)
 {
     std::random_device rand;
@@ -131,6 +138,7 @@ void Hangman::randomWord(std::string & wordParam, std::array<std::string, 10> & 
     wordParam = arrayParam[0];
 }
 
+// Função para escolher o tema 
 void Hangman::chooseTheme()
 {
     std::string strThemeIndex;
@@ -148,8 +156,7 @@ void Hangman::chooseTheme()
             }
 
             std::cout << "Choose the number of a theme to play: ";
-            std::cin >> strThemeIndex;
-            std::cin.ignore();
+            std::getline(std::cin, strThemeIndex);
 
             if(!std::all_of(strThemeIndex.begin(), strThemeIndex.end(), ::isdigit))
             {
@@ -210,14 +217,13 @@ void Hangman::chooseTheme()
     }
 }
 
+// Função onde ocorre o game
 void Hangman::game()
 {
     std::string underlineString(word_.size(), '_');
     std::string strLetter;
     attempts_ = 5;
     std::vector<char> wrongLetters;
-
-    std::cout << word_ << '\n';
 
     while(true)
     {
@@ -324,6 +330,7 @@ void Hangman::game()
     }
 }
 
+// Pega a variavel yesOrNot
 std::string Hangman::getYesOrNot()
 {
     return yesOrNot_;

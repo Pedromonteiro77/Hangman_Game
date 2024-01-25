@@ -2,13 +2,16 @@
 
 class Menu
 {
-protected:
+private:
     unsigned int option_;
+    unsigned int settingsOption_;
 
 public:
     Menu();
     ~Menu() = default;
 
-    void optionsMenu();
+    void mainMenu();
+    void settingsMenu();
     const unsigned int getOption() const;
+    const unsigned int getSettingsOption() const;
 };
