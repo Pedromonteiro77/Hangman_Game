@@ -28,7 +28,7 @@ void Menu::mainMenu()
             }
 
             bool isInt {true};
-            for(auto & i : strOption)
+            for(auto& i : strOption)
             {
                 if(!std::isdigit(i))
                 {
@@ -52,7 +52,7 @@ void Menu::mainMenu()
             break;
         }
 
-        catch(const std::invalid_argument & e)
+        catch(const std::invalid_argument& e)
         {
             std::cerr << e.what() << '\n';
             std::cout << "Press Enter to continue...";
@@ -88,7 +88,7 @@ void Menu::settingsMenu()
                 throw std::invalid_argument("INVALID! Don't leave the field empty and Enter one of the options");
             }
 
-            for(auto & i : strSettingOpt)
+            for(auto& i : strSettingOpt)
             {
                 if(!std::isdigit(i))
                 {
@@ -112,7 +112,7 @@ void Menu::settingsMenu()
             break;
         }
 
-        catch(const std::invalid_argument & e)
+        catch(const std::invalid_argument& e)
         {
             std::cerr << e.what() << '\n';
             std::cout << "Press Enter to continue...";

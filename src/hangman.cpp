@@ -67,7 +67,7 @@ void Hangman::writeFoods()
 }
 
 // Função para não ter que ficar repetindo a verificação
-void Hangman::yesOrNotVerify(const std::string & textParam, std::string & yesNotParam)
+void Hangman::yesOrNotVerify(const std::string& textParam, std::string& yesNotParam)
 {
     while(true)
     {
@@ -115,7 +115,7 @@ void Hangman::askPlayerName()
             Screen::clear();
         }
 
-        catch(const std::invalid_argument & e)
+        catch(const std::invalid_argument& e)
         {
             std::cerr << e.what() << '\n';
             std::cout << "Press Enter to continue...";
@@ -127,7 +127,7 @@ void Hangman::askPlayerName()
 }
 
 // Função que pega um palavra aleatoria do array escolhido
-void Hangman::randomWord(std::string & wordParam, std::array<std::string, 10> & arrayParam)
+void Hangman::randomWord(std::string& wordParam, std::array<std::string, 10>& arrayParam)
 {
     std::random_device rand;
 
@@ -182,7 +182,7 @@ void Hangman::chooseTheme()
             Screen::clear();
         }
 
-        catch(const std::invalid_argument & e)
+        catch(const std::invalid_argument& e)
         {
             std::cerr << e.what() << '\n';
             std::cout << "Press Enter to continue...";
@@ -234,7 +234,7 @@ void Hangman::game()
         if(!wrongLetters.empty())
         {   
             std::cout << "Wrong Letters: ";
-            for(auto & i : wrongLetters)
+            for(auto& i : wrongLetters)
             {
                 std::cout << i << " ";
             }
@@ -289,7 +289,7 @@ void Hangman::game()
             }
         }
 
-        for(auto & i : wrongLetters)
+        for(auto& i : wrongLetters)
         {
             if(letter_ == i)
             {

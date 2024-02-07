@@ -23,13 +23,13 @@ private:
     void writeFruits();
     void writeCountries();
     void writeFoods();
-    void randomWord(std::string & wordParam, std::array<std::string, 10> & arrayParam);
+    void randomWord(std::string& wordParam, std::array<std::string, 10>& arrayParam);
     
 public:
     Hangman();
     ~Hangman() = default;
     
-    void yesOrNotVerify(const std::string & textParam, std::string & yesNotParam);
+    void yesOrNotVerify(const std::string& textParam, std::string& yesNotParam);
     void askPlayerName();
     void chooseTheme();
     void game();

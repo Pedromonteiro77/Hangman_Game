@@ -11,5 +11,5 @@ private:
 public:
     MusicPlayer();
     ~MusicPlayer() = default;
-    const int soundtrack(const std::string & musicParam, std::atomic<bool> & stopMusicParam);
+    const int soundtrack(const std::string& musicParam, std::atomic<bool>& stopMusicParam);
 };

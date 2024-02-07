@@ -6,7 +6,7 @@
 MusicPlayer::MusicPlayer() : music({}) {}
 
 // Função que toca a musica em loop
-const int MusicPlayer::soundtrack(const std::string & musicParam, std::atomic<bool> & stopMusicParam)
+const int MusicPlayer::soundtrack(const std::string& musicParam, std::atomic<bool>& stopMusicParam)
 {
     if(!music.openFromFile("music/" + musicParam))
     {
