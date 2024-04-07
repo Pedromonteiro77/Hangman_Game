@@ -1,10 +1,12 @@
 #pragma once
 
+#include <cstdint>
+
 class Menu
 {
 private:
-    unsigned int option_;
-    unsigned int settingsOption_;
+    uint16_t option_;
+    uint16_t settingsOption_;
 
 public:
     Menu();
@@ -12,6 +14,6 @@ public:
 
     void mainMenu();
     void settingsMenu();
-    const unsigned int getOption() const;
-    const unsigned int getSettingsOption() const;
+    const uint16_t getOption() const;
+    const uint16_t getSettingsOption() const;
 };
