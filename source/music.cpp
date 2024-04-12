@@ -10,9 +10,9 @@ MusicPlayer::MusicPlayer() : music_({}) {}
 // Função que toca a musica em loop
 const int MusicPlayer::soundtrack(std::atomic<bool>& stopMusicParam)
 {
-    const std::string musicPathFolder[2] = {"../music/modolistik.wav", "music/modolistik.wav"};
+    const std::string musicPathFolder {"music/modolistik.wav"};
 
-    if(!(music_.openFromFile(musicPathFolder[0]) || music_.openFromFile(musicPathFolder[1])))
+    if(!music_.openFromFile(musicPathFolder))
     {
         std::cerr << "It's not possible to open the music!";
         return EXIT_FAILURE;

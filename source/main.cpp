@@ -2,34 +2,34 @@
 #include <thread>
 #include "../header/hangman.hpp"
 #include "../header/menu.hpp"
-#include "../header/screen_clear.hpp"
 #include "../header/music.hpp"
+#include "../header/screen_clear.hpp"
 
 int main()
 {
     Screen::clear();
     
-    Menu objMenu;
-    Hangman objHangman;
-    MusicPlayer objMusicPlayer;
+    Menu menu;
+    Hangman hangman;
+    MusicPlayer musicPlayer;
     
     // Thread que faz tocar musica
-    std::atomic<bool> musicStop(false);
-    std::thread musicThread([&objMusicPlayer, &musicStop]()
+    std::atomic<bool> musicStop {false};
+    std::thread musicThread([&musicPlayer, &musicStop]()
     {
-        objMusicPlayer.soundtrack(musicStop);
+        musicPlayer.soundtrack(musicStop);
     });
 
     // Loop Principal onde o jogo roda
-    bool mainLoopIsTrue = true;
+    bool mainLoopIsTrue {true};
     while(mainLoopIsTrue)
     {
-        bool itsTheFirstTime = true;
-        bool settingsLoopIsTrue = true;
+        bool itsTheFirstTime {true};
+        bool settingsLoopIsTrue {true};
 
-        objMenu.mainMenu();
+        menu.mainMenu();
 
-        switch(objMenu.getOption())
+        switch(menu.getOption())
         {
             case 1:
                 while(true)
@@ -39,19 +39,19 @@ int main()
                     if(itsTheFirstTime)
                     {
                         // Função para escolher o nome
-                        objHangman.askPlayerName();
+                        hangman.askPlayerName();
                     }
                     
                     // Função para escolher o tema da partida
-                    objHangman.chooseTheme();
+                    hangman.chooseTheme();
 
                     // Função onde ocorre o jogo
-                    objHangman.game();
-
-                    std::string yesNot {objHangman.getYesOrNot()};
-                    objHangman.yesOrNotVerify("Do you want to play again? (Y/N): ", yesNot);
+                    hangman.game();
 
                     // Verificação caso o player queira jogar outra partida 
+                    std::string yesNot {hangman.getYesOrNot()};
+                    hangman.yesOrNotVerify("Do you want to play again? (Y/N): ", yesNot);
+
                     if(yesNot == "Y")
                     {
                         itsTheFirstTime = false;
@@ -70,9 +70,9 @@ int main()
                 while(settingsLoopIsTrue)
                 {
                     // Função do menu de configurações
-                    objMenu.settingsMenu();
+                    menu.settingsMenu();
 
-                    switch(objMenu.getSettingsOption())
+                    switch(menu.getSettingsOption())
                     {   
                         // inicia a musica
                         case 1:
@@ -85,9 +85,9 @@ int main()
                                     musicThread.join();
                                 }
 
-                                musicThread = std::thread([&objMusicPlayer, &musicStop]()
+                                musicThread = std::thread([&musicPlayer, &musicStop]()
                                 {
-                                    objMusicPlayer.soundtrack(musicStop);
+                                    musicPlayer.soundtrack(musicStop);
                                 });
 
                                 continue;
@@ -133,7 +133,7 @@ int main()
                 break;
             
             case 3:
-                // Para a musica assim que o player sai do loop principal e termina o programa
+                // Para a musica e termina o programa
                 musicStop = true;
                 mainLoopIsTrue = false;
 
