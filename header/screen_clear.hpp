@@ -1,10 +1,6 @@
 #pragma once
 
-class Screen
+namespace Screen
 {
-public:
-    Screen() = default;
-    ~Screen() = default;
-
-    static void clear();
+    void clear();
 };

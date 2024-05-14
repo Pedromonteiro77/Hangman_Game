@@ -3,41 +3,40 @@
 #include <array>
 #include <string>
 #include <cstdint>
-#include <cstddef>
 
-const size_t THEME_ARRAY_SIZE {4};
-const size_t ARRAYS_SIZE {10};
+const uint16_t THEME_ARRAY_SIZE {4};
+const uint16_t ARRAYS_SIZE {10};
 
 class Hangman
 {
 private:
-    std::array<std::string, THEME_ARRAY_SIZE> themes_;
-    std::array<std::string, ARRAYS_SIZE> peopleName_;
-    std::array<std::string, ARRAYS_SIZE> fruits_;
-    std::array<std::string, ARRAYS_SIZE> countries_;
-    std::array<std::string, ARRAYS_SIZE> foods_;
-    std::string playerName_; 
-    std::string yesOrNot_;
-    std::string word_;
-    uint32_t themeIndex_;
-    char letter_;
-    uint32_t attempts_;
+    std::array<const char*, THEME_ARRAY_SIZE> m_Themes;
+    std::array<const char*, ARRAYS_SIZE> m_PeopleName;
+    std::array<const char*, ARRAYS_SIZE> m_Fruits;
+    std::array<const char*, ARRAYS_SIZE> m_Countries;
+    std::array<const char*, ARRAYS_SIZE> m_Foods;
+    std::string m_PlayerName; 
+    std::string m_YesOrNot;
+    std::string m_Word;
+    uint16_t m_ThemeIndex;
+    char m_Letter;
+    uint16_t m_Attempts;
 
     void writeThemes();
     void writePeopleName();
     void writeFruits();
     void writeCountries();
     void writeFoods();
-    void randomWord(std::string& wordParam, std::array<std::string, ARRAYS_SIZE>& arrayParam);
+    void randomWord(std::string& wordParam, std::array<const char*, ARRAYS_SIZE>& arrayParam);
     
 public:
     Hangman();
-    ~Hangman() = default;
     
     void yesOrNotVerify(const std::string& textParam, std::string& yesNotParam);
     void askPlayerName();
     void chooseTheme();
     void game();
-
     const std::string& getYesOrNot();
+
+    ~Hangman() = default;
 };

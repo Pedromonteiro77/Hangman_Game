@@ -4,7 +4,7 @@
 #include "..\header\screen_clear.hpp"
 
 // Construtor da Classe Menu
-Menu::Menu() : option_(0) {}
+Menu::Menu() : m_Option(), m_SettingsOption() {}
 
 // Menu Principal
 void Menu::mainMenu()
@@ -42,9 +42,9 @@ void Menu::mainMenu()
                 throw std::invalid_argument("INVALID! Enter one of the options");
             }
 
-            option_ = std::stoi(strOption);
+            m_Option = std::stoi(strOption);
 
-            if(option_ < 1 || option_ > 3)
+            if(m_Option < 1 || m_Option > 3)
             {
                 throw std::invalid_argument("INVALID! Enter a number between 1 and 3");
             }
@@ -102,9 +102,9 @@ void Menu::settingsMenu()
                 throw std::invalid_argument("INVALID! Enter one of the options");
             }
 
-            settingsOption_ = std::stoi(strSettingOpt);
+            m_SettingsOption= std::stoi(strSettingOpt);
 
-            if(settingsOption_ < 1 || settingsOption_ > 3)
+            if(m_SettingsOption < 1 || m_SettingsOption > 3)
             {
                 throw std::invalid_argument("INVALID! Enter a number between 1 and 3");
             }
@@ -126,14 +126,14 @@ void Menu::settingsMenu()
     Screen::clear();
 }
 
-// Retorna a variavel option_
+// Retorna a variavel m_Option
 const uint16_t Menu::getOption() const
 {
-    return option_;
+    return m_Option;
 }
 
 // Retorna a variavel settingsOption
 const uint16_t Menu::getSettingsOption() const
 {
-    return settingsOption_;
+    return m_SettingsOption;
 }

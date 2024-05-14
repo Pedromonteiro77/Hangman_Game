@@ -1,15 +1,7 @@
 #pragma once
 
-#include <SFML/Audio.hpp>
+#include "../resources/SDL2/include/SDL.h"
+#include "../resources/SDL2/include/SDL_mixer.h"
 #include <atomic>
-
-class MusicPlayer
-{
-private:
-    sf::Music music_;
-
-public:
-    MusicPlayer();
-    ~MusicPlayer() = default;
-    const int soundtrack(std::atomic<bool>& stopMusicParam);
-};
+    
+int soundtrack(std::atomic<bool>& isMusicPlaying);

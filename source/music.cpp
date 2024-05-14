@@ -4,30 +4,44 @@
 #include <stdexcept>
 #include "../header/music.hpp"
 
-// Construtor da Classe MusicPlayer
-MusicPlayer::MusicPlayer() : music_({}) {}
-
 // Função que toca a musica em loop
-const int MusicPlayer::soundtrack(std::atomic<bool>& stopMusicParam)
+int soundtrack(std::atomic<bool>& isMusicPlaying)
 {
-    const std::string musicPathFolder {"music/modolistik.wav"};
-
-    if(!music_.openFromFile(musicPathFolder))
+    if(SDL_Init(SDL_INIT_AUDIO) != 0)
     {
-        std::cerr << "It's not possible to open the music!";
+        std::cerr << "Failed to Init AUDIO: " << SDL_GetError();
         return EXIT_FAILURE;
     }
 
-    music_.play();
-
-    music_.setLoop(true);
-
-    while(!stopMusicParam)
+    if(Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 2048) != 0)
     {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::cerr << "Failed to Open AUDIO: " << Mix_GetError();
+        return EXIT_FAILURE;
     }
 
-    music_.stop();
+    Mix_Music* music = Mix_LoadMUS("music/moonolistik.wav");
 
-    return EXIT_SUCCESS;
+    if(!music)
+    {
+        std::cerr << "Failed to Load the music: " << Mix_GetError();
+        return EXIT_FAILURE;
+    }
+
+    if(Mix_PlayMusic(music, -1) == -1)
+    {
+        std::cerr << "Failed to Play the music: " << Mix_GetError();
+        return EXIT_FAILURE;
+    }
+
+    while(isMusicPlaying)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    Mix_HaltMusic();
+    Mix_FreeMusic(music);
+    Mix_CloseAudio();
+    SDL_Quit();
+
+    return 0;
 };

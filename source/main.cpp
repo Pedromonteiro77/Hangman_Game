@@ -5,19 +5,18 @@
 #include "../header/music.hpp"
 #include "../header/screen_clear.hpp"
 
-int main()
+int main(int argc, char* argv[])
 {
     Screen::clear();
-    
+
     Menu menu;
     Hangman hangman;
-    MusicPlayer musicPlayer;
     
     // Thread que faz tocar musica
-    std::atomic<bool> musicStop {false};
-    std::thread musicThread([&musicPlayer, &musicStop]()
+    std::atomic<bool> isMusicPlaying {true};
+    std::thread musicThread([&isMusicPlaying]()
     {
-        musicPlayer.soundtrack(musicStop);
+        soundtrack(isMusicPlaying);
     });
 
     // Loop Principal onde o jogo roda
@@ -76,18 +75,18 @@ int main()
                     {   
                         // inicia a musica
                         case 1:
-                            if(musicStop)
+                            if(!isMusicPlaying)
                             {
-                                musicStop = false;
+                                isMusicPlaying = true;
 
                                 if(musicThread.joinable())
                                 {
                                     musicThread.join();
                                 }
 
-                                musicThread = std::thread([&musicPlayer, &musicStop]()
+                                musicThread = std::thread([&isMusicPlaying]()
                                 {
-                                    musicPlayer.soundtrack(musicStop);
+                                    soundtrack(isMusicPlaying);
                                 });
 
                                 continue;
@@ -101,9 +100,9 @@ int main()
 
                         // Para a musica
                         case 2:
-                            if(!musicStop)
+                            if(isMusicPlaying)
                             {
-                                musicStop = true;
+                                isMusicPlaying = false;
 
                                 if(musicThread.joinable())
                                 {
@@ -133,8 +132,8 @@ int main()
                 break;
             
             case 3:
-                // Para a musica e termina o programa
-                musicStop = true;
+                // Para a musica e termina o Game
+                isMusicPlaying = false;
                 mainLoopIsTrue = false;
 
                 if(musicThread.joinable())

@@ -5,15 +5,16 @@
 class Menu
 {
 private:
-    uint16_t option_;
-    uint16_t settingsOption_;
+    uint16_t m_Option;
+    uint16_t m_SettingsOption;
 
 public:
     Menu();
-    ~Menu() = default;
 
     void mainMenu();
     void settingsMenu();
     const uint16_t getOption() const;
     const uint16_t getSettingsOption() const;
+    
+    ~Menu() = default;
 };
